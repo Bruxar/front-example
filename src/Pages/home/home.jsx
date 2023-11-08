@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { getAeropuertos, getUbicacion, getPaquetesOfertas,agregarVista } from '../../api';
+import { getAeropuertos, getUbicacion, getOfertas ,agregarVista } from '../../api';
 import BuscaViaje from '../../Components/buscaViaje/BuscaViaje';
 import LoadingSpinner from '../../Components/LoadingSpinner/LoadingSpinner';
 import { useNavigate } from 'react-router-dom'; // Importa useNavigate desde react-router-dom
