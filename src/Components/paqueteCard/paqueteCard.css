@@ -27,8 +27,8 @@
 /* Imagen dentro de la tarjeta */
 .paqueteCardImage img {
     width: 100%;
-    height: auto;
-    min-height: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
 /* Botón de compra y su estado hover */
@@ -130,4 +130,45 @@
 
 .paqueteCardPriceTotal .precioUnit {
     font-size: 3rem;
+}
+
+.paqueteCardPriceTotalPersona .TotalPersona{
+    font-weight: 700;
+    font-size: 1em;
+}
+.paqueteCardPriceTotalPersona p{
+    font-size: 1em;
+
+}
+
+@media (max-width: 1482px) {
+    .paqueteCard{
+        display: flex;
+        flex-direction: column;
+    }
+    .paqueteCardImages,.paqueteContent{
+        width: 100%;
+    }
+
+
+}
+
+@media (max-width: 425px) {
+    .paqueteCardPriceTotal{
+        font-size: 15px;
+    }
+}
+
+@media (max-width: 725px) {
+    .paqueteCardPriceTotalPersona p{
+        font-size: .8em;
+        display: inline-block;
+        vertical-align: bottom;
+    }
+
+    .paqueteCardPriceTotal .precioUnit{
+        font-size: 1.5em;
+        display: inline-block;
+        vertical-align: bottom;
+    }
 }
