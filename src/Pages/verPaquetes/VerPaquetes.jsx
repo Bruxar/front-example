@@ -29,9 +29,18 @@ const VerPaquetes = () => {
     const [paquetesFiltrados, setPaquetesFiltrados] = useState([]);
 
     const filtrarPaquetes = (stars, serviceTypes) => {
-        console.log(stars, serviceTypes);
+        console.log('Estrellas:', stars);
+        console.log('Servicios:', serviceTypes);
+        const paquetesFiltrados = paquetes.filter((paquete) => {
+            const cumpleValoracion = stars === '' || paquete.valoracion_hotel === parseInt(stars);
+            const cumpleServicios = serviceTypes.length === 0 || serviceTypes.every((servicio) => paquete.servicios_habitacion.includes(servicio));
+            return cumpleValoracion && cumpleServicios;
+          });
+        
+          // Establece la lista de paquetes filtrados en el estado.
+          setPaquetesFiltrados(paquetesFiltrados);
     };
-    
+
     const placeholder = {
         origen: `Origen: ${respuesta.origen_id}`,
         destino: `Destino: ${respuesta.destino_id}`,
@@ -132,7 +141,7 @@ const VerPaquetes = () => {
                     </div>
                 </div>
                 <ListaPaquetes
-                    paquetes={paquetes}
+                    paquetes={paquetesFiltrados}
                     onBuy={handleComprar}
                 />
             </div>
