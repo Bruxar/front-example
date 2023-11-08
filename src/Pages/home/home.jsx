@@ -5,6 +5,7 @@ import LoadingSpinner from '../../Components/LoadingSpinner/LoadingSpinner';
 import { useNavigate } from 'react-router-dom'; // Importa useNavigate desde react-router-dom
 import Carrusel from './carrusel/OfferCarousel'
 
+
 import './Home.css';
 import Footer from '../../utils/Footer';
 import Header from '../../utils/Header';
@@ -33,20 +34,20 @@ const Home = () => {
     }, []);
 
     useEffect(() => {
-        const fetchUbicacion = async () => {
-            try {
-                const data = await getUbicacion();
-                setUbicacion({ Ciudad: data.cityName });
-            } catch (error) {
+      const fetchUbicacion = async () => {
+          try {
+              const data = await getUbicacion();
+              setUbicacion({ Ciudad: data.cityName });
+          } catch (error) {
                 setError(error);
-            } finally {
-                setLoading(false);
+           } finally {
+               setLoading(false);
             }
         };
 
-        fetchUbicacion();
+         fetchUbicacion();
     }, []);
-console.log(ubicacion)
+  console.log(ubicacion)
 
 
     useEffect(() => {
@@ -113,10 +114,23 @@ console.log(ubicacion)
                 />
             </div>
             <div className="carrusel">
+            
                 {paquetesOfertas != null ? (
-                    <Carrusel paquetes={paquetesOfertas} handleBuy = {handleComprar} />
+                    <div>
+                       <div className= "mt-3 ms-5 d-flex w-50 "><h2>Ofertas</h2></div> 
+                        <Carrusel paquetes={paquetesOfertas} handleBuy = {handleComprar} />
+                   </div>
+                    
                 ) : (
-                    <div>No se encontraron paquetes de oferta.</div>
+                    <div className="d-flex align-items-center  justify-content-center">
+             <div className="mt-5 align-items-center w-50 ">
+              <h4 className='ms-4'>No se encontraron paquetes en destacados en tu ubicación 😒</h4>
+            </div>
+           <div className="d-flex">
+        <img src="/error.png" alt="yamsha" className="img-fluid" style={{ maxWidth: '60vh' }} />
+       </div>
+       </div>
+  
                 )}
             </div>
         </div>

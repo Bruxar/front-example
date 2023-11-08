@@ -96,8 +96,8 @@ function OfferCarousel({ paquetes, handleBuy }) {
   const chunkedPaquetes = chunkArray(paquetes, cardsToShow);
 
   return (
-    <div className="offer mt-5">
-      <h1 className='ms-4'>Destacados</h1>
+    <div className="offer">
+      
       <div className="container">
         <Carousel interval={null}>
           {chunkedPaquetes.map((paqueteGroup, groupIndex) => (
