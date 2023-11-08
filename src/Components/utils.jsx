@@ -1,4 +1,3 @@
-// utils.js
 import React from 'react';
 import { FaConciergeBell, FaCocktail, FaBed, FaWifi, FaTv, FaCoffee } from 'react-icons/fa';
 
@@ -17,7 +16,7 @@ export const renderStars = (valoracion) => {
     let stars = [];
 
     for (let i = 0; i < valoracion; i++) {
-        stars.push(<span key={`star_${i}`} className="star filled">★</span>);
+        stars.push(<span style={{color:"#F4BA40"}} key={`star_${i}`} className="star filled">★</span>);
     }
 
     for (let i = valoracion; i < totalStars; i++) {
@@ -53,3 +52,8 @@ export function formatFecha(fecha) {
     
     return formattedFecha;
   }
+
+  export function MesString (mes)
+ {   const messtring = mes ? new Date(0, mes - 1).toLocaleString('es-ES', { month: 'long' }) : null;
+    return messtring
+}

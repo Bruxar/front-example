@@ -116,7 +116,7 @@ export default function BuscaViaje({ aeropuertos, onSubmit, placeholder, initial
                     <label className="LabelFecha">Fecha</label>
                     <CustomCalendar onDateSelect={handleDateSelect} placeholder={placeholder && placeholder.calendario ? placeholder.calendario : "Selecciona una fecha"} />
                 </div>
-                <div className="ContenedorPasajeros">
+                <div className="ContenedorPasajeros mt-1" >
                     <label className="LabelPasajeros">Pasajeros</label>
                     {opcionesPasajeros}
                 </div>
