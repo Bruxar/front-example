@@ -134,7 +134,7 @@ const placeholder = {
 
       <div className="VerListaPaquetes">
         {paquetesFiltrados.length === 0 ? ( // Comprueba si no hay paquetes disponibles
-          <NoPaquetesDisp /> // Muestra el mensaje cuando no hay paquetes
+          <NoPaquetesDisp onNewSearch={filtrarPaquetes}/> // Muestra el mensaje cuando no hay paquetes
         ) : (
           <div className="col-md-12 mx-5 mr-5 mt-2 pl-5 ">
             <div className="Botones" >
