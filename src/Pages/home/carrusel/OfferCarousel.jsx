@@ -2,9 +2,19 @@ import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './OfferCarousel.css';
 import Carousel from 'react-bootstrap/Carousel';
-import { renderStars } from '../../../Components/utils';
+import { renderStars, formatFecha } from '../../../Components/utils';
 
-function OfferCard({ paquete, cardsToShow, VITE_PATH_IMAGES }) {
+
+
+function OfferCard({ paquete, cardsToShow, VITE_PATH_IMAGES, handleBuy}) {
+
+
+
+
+
+
+  
+
   // Limpia la cadena de imÃ¡genes, elimina corchetes y espacios en blanco
   const cleanedImages = paquete.imagenes ? paquete.imagenes.replace(/[{}]/g, '').split(',').map(image => image.trim()) : [];
 
@@ -13,6 +23,8 @@ function OfferCard({ paquete, cardsToShow, VITE_PATH_IMAGES }) {
 
   // Construye la URL completa de la primera imagen
   const imageUrl = `${VITE_PATH_IMAGES}${firstImage}`;
+  
+  
 
   return (
     <div className={`col-md-${12 / cardsToShow} col-sm-6 mt-2 mb-2`}>
@@ -30,18 +42,23 @@ function OfferCard({ paquete, cardsToShow, VITE_PATH_IMAGES }) {
             <p >{paquete.info_paquete.hotel_info.nombre_hotel} </p>
             {renderStars(paquete.info_paquete.hotel_info.valoracion_hotel)}
           </div>
-          <div className="Information d-flex flex-column">
-            <h3 className='fw-bold'>{paquete.precio_oferta_vuelo}</h3>
-            <h3 className='text-decoration-line-through'>{paquete.precio_vuelo}</h3>
-          </div>
-          <div className='d-flex justify-content-end'><button className="btn btn-primary btn-card ">Ver Paquete</button></div>
+          <div className="d-flex justify-content-between">
+          <div className="fecha  "> <div className="d-flex justify-content-between ">
+              <div className="bg-secondary text-white rounded p-2 ida me-2">{formatFecha(paquete.fecha_init)} </div>
+              <div className="bg-primary text-white rounded p-2"> {formatFecha(paquete.fecha_fin)}</div>
+            </div></div>
+          <div className="Information d-flex flex-column align-items-end">
+            <h3 className='fw-bold '>${paquete.precio_oferta_vuelo}</h3>
+            <h3 className='text-decoration-line-through'>${paquete.precio_vuelo}</h3>
+          </div></div>
+          <div className='d-flex justify-content-end'><button className="btn btn-primary btn-card " onClick={() => handleBuy(paquete)} >Ver Paquete</button></div>
           
         </div>
       </div>
     </div>
   );
 }
-function OfferCarousel({ paquetes }) {
+function OfferCarousel({ paquetes, handleBuy }) {
   const [cardsToShow, setCardsToShow] = useState(4);
 
   useEffect(() => {
@@ -80,14 +97,14 @@ function OfferCarousel({ paquetes }) {
 
   return (
     <div className="offer mt-5">
-      <h1>Destacados</h1>
+      <h1 className='ms-4'>Destacados</h1>
       <div className="container">
         <Carousel interval={null}>
           {chunkedPaquetes.map((paqueteGroup, groupIndex) => (
             <Carousel.Item key={`carousel-item-${groupIndex}`}>
               <div className="row justify-content-center">
                 {paqueteGroup.map((paquete) => (
-                  <OfferCard key={paquete.id} paquete={paquete} cardsToShow={cardsToShow} VITE_PATH_IMAGES={VITE_PATH_IMAGES} />
+                  <OfferCard key={paquete.id} paquete={paquete} handleBuy={handleBuy} cardsToShow={cardsToShow} VITE_PATH_IMAGES={VITE_PATH_IMAGES} />
                 ))}
               </div>
             </Carousel.Item>

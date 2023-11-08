@@ -34,3 +34,22 @@ export const renderServiceIcons = (services) => {
         </span>
     ));
 };
+
+export function formatFecha(fecha) {
+    const meses = [
+      "Ene", "Feb", "Mar", "Abr", "May", "Jun",
+      "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"
+    ];
+  
+    const parts = fecha.split('-'); // Divide la fecha en partes: año, mes y día
+    const [year, month, dia] = parts;
+
+    
+    // Obtiene el nombre del mes usando el número del mes
+    const nombreMes = meses[parseInt(month) - 1];
+  
+    // Formatea la fecha en el formato deseado (DD-Mes)
+    const formattedFecha = `${dia} ${nombreMes}`;
+    
+    return formattedFecha;
+  }

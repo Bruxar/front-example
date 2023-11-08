@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { getAeropuertos, getUbicacion, getPaquetesOfertas } from '../../api';
+import { getAeropuertos, getUbicacion, getPaquetesOfertas,agregarVista } from '../../api';
 import BuscaViaje from '../../Components/buscaViaje/BuscaViaje';
 import LoadingSpinner from '../../Components/LoadingSpinner/LoadingSpinner';
 import { useNavigate } from 'react-router-dom'; // Importa useNavigate desde react-router-dom
@@ -83,6 +83,24 @@ console.log(ubicacion)
     if (error) {
         return <div>Error: {error.message}</div>;
     }
+    const handleComprar = (paquete) => {
+        // Log the package id
+        // console.log(paquete.id);
+
+        // Call the agregarVista function with the package id
+        agregarVista({ fk_fechaPaquete: paquete.id })
+            .then(response => {
+                // Handle the response if needed
+                // console.log(response);
+            })
+            .catch(error => {
+                // Handle errors
+                console.error(error);
+            });
+
+        // Navigate to the '/detalle' route with the package details
+        navigate('/detalle', { state: paquete });
+    }
 
     return (
         <div className="Home">
@@ -96,7 +114,7 @@ console.log(ubicacion)
             </div>
             <div className="carrusel">
                 {paquetesOfertas != null ? (
-                    <Carrusel paquetes={paquetesOfertas} />
+                    <Carrusel paquetes={paquetesOfertas} handleBuy = {handleComprar} />
                 ) : (
                     <div>No se encontraron paquetes de oferta.</div>
                 )}
