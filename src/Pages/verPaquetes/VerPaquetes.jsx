@@ -14,6 +14,7 @@ import BotonOrdener from '../../Components/botonOrdenar/SortBy';
 import Header from '../../utils/Header';
 import Footer from '../../utils/Footer';
 import Filtros from '../../Components/Filtros';
+import NoPaquetesDisp from '../../Components/NoPaquetesDisp';
 
 import './VerPaquetes.css';
 
@@ -128,16 +129,22 @@ const VerPaquetes = () => {
       </div>
 
       <div className="VerListaPaquetes">
-        <div className="col-md-12 mx-5 mr-5 mt-2 pl-5 ">
-          <div className="Botones" >
-            <BotonOrdener paquetes={paquetes} setPackages={setPaquetes} />
-            <button type='button' className='btn' onClick={() => setShowModal(true)}>Filtros</button>
+        {paquetesFiltrados.length === 0 ? ( // Comprueba si no hay paquetes disponibles
+          <NoPaquetesDisp /> // Muestra el mensaje cuando no hay paquetes
+        ) : (
+          <div className="col-md-12 mx-5 mr-5 mt-2 pl-5 ">
+            <div className="Botones" >
+              <BotonOrdener paquetes={paquetes} setPackages={setPaquetes} />
+              <button type='button' className='btn' onClick={() => setShowModal(true)}>Filtros</button>
+            </div>
           </div>
-        </div>
-        <ListaPaquetes
-          paquetes={paquetesFiltrados}
-          onBuy={handleComprar}
-        />
+        )}
+        {paquetesFiltrados.length > 0 && ( // Solo muestra la lista de paquetes si hay paquetes disponibles
+          <ListaPaquetes
+            paquetes={paquetesFiltrados}
+            onBuy={handleComprar}
+          />
+        )}
       </div>
       <Footer />
       <Modal show={showModal} onHide={() => setShowModal(false)}>

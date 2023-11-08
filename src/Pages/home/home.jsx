@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { getAeropuertos, getUbicacion, getPaquetesOfertas } from '../../api';
+import { getAeropuertos, getUbicacion, getOfertas } from '../../api';
 import BuscaViaje from '../../Components/buscaViaje/BuscaViaje';
 import LoadingSpinner from '../../Components/LoadingSpinner/LoadingSpinner';
 import { useNavigate } from 'react-router-dom'; // Importa useNavigate desde react-router-dom
@@ -52,7 +52,7 @@ console.log(ubicacion)
     useEffect(() => {
         const fetchOfertas = async () => {
             try {
-                const data = await getPaquetesOfertas(ubicacion);
+                const data = await getOfertas(ubicacion);
                 setPaquetesOfertas(data);
             } catch (error) {
                 setError(error);
