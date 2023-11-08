@@ -1,15 +1,16 @@
+// VerPaquetes.jsx (sin el filtro de servicios)
+
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import LoadingSpinner from '../../Components/LoadingSpinner/LoadingSpinner';
 import { getPaquetes, getPaquetesMes, agregarVista } from '../../api';
-import { useNavigate } from 'react-router-dom'; // Importa useNavigate desde react-router-dom
+import { useNavigate } from 'react-router-dom';
 import { Modal } from 'react-bootstrap';
-
 
 import BuscaViaje from '../../Components/buscaViaje/BuscaViaje';
 import ListaPaquetes from '../../Components/listaPaquetes/ListaPaquetes';
-import BotonOrdener from '../../Components/botonOrdenar/SortBy'
+import BotonOrdener from '../../Components/botonOrdenar/SortBy';
 import Header from '../../utils/Header';
 import Footer from '../../utils/Footer';
 import Filtros from '../../Components/Filtros';
@@ -17,143 +18,135 @@ import Filtros from '../../Components/Filtros';
 import './VerPaquetes.css';
 
 const VerPaquetes = () => {
-    const location = useLocation();
-    const data = location.state;
-    const respuesta = data.respuesta;
-    const aeropuertos = data.aeropuertos;
-    const [paquetes, setPaquetes] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
-    const navigate = useNavigate(); // Obtén la función de navegación
-    const [showModal, setShowModal] = useState(false);
-    const [paquetesFiltrados, setPaquetesFiltrados] = useState([]);
+  const location = useLocation();
+  const data = location.state;
+  const respuesta = data.respuesta;
+  const aeropuertos = data.aeropuertos;
+  const [paquetes, setPaquetes] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const navigate = useNavigate();
+  const [showModal, setShowModal] = useState(false);
+  const [paquetesFiltrados, setPaquetesFiltrados] = useState([]);
 
-    const filtrarPaquetes = (stars, serviceTypes) => {
-        console.log('Estrellas:', stars);
-        console.log('Servicios:', serviceTypes);
-        const paquetesFiltrados = paquetes.filter((paquete) => {
-            const cumpleValoracion = stars === '' || paquete.valoracion_hotel === parseInt(stars);
-            const cumpleServicios = serviceTypes.length === 0 || serviceTypes.every((servicio) => paquete.servicios_habitacion.includes(servicio));
-            return cumpleValoracion && cumpleServicios;
-          });
-        
-          // Establece la lista de paquetes filtrados en el estado.
-          setPaquetesFiltrados(paquetesFiltrados);
-    };
 
-    const placeholder = {
-        origen: `Origen: ${respuesta.origen_id}`,
-        destino: `Destino: ${respuesta.destino_id}`,
-        calendario: respuesta.mes ? `Mes: ${respuesta.mes}` : `${respuesta.fechaInit} - ${respuesta.fechaFin}`,
-        pasajeros: `Pasajeros: ${respuesta.personas}`
-    };
+  const filtrarPaquetes = (stars, selectedServices) => {
+    const paquetesFiltrados = paquetes.filter((paquete) => {
+        const cumpleValoracion = stars === '' || Math.round(paquete.info_paquete.hotel_info.valoracion_hotel) === Math.round(stars);
+        const cumpleServicios = selectedServices.length === 0 || selectedServices.every((service) => paquete.info_paquete.servicios_habitacion.includes(service));
+        return cumpleValoracion && cumpleServicios;
+    });
 
-    const initialValues = {
-        origen: respuesta.origen_id,
-        destino: respuesta.destino_id,
-        fecha: {
-            tipo: respuesta.mes ? 'mes' : 'rango',
-            fechaInicio: respuesta.mes ? null : respuesta.fechaInit,
-            fechaFin: respuesta.mes ? null : respuesta.fechaFin,
-            mes: respuesta.mes || null,
-        },
-        pasajeros: respuesta.personas,
-    };
+    setPaquetesFiltrados(paquetesFiltrados);
+};
 
-    const handleBuscarViaje = (respuesta) => {
-        const dataForNavigate = {
-            respuesta,
-            aeropuertos
+  const placeholder = {
+    origen: `Origen: ${respuesta.origen_id}`,
+    destino: `Destino: ${respuesta.destino_id}`,
+    calendario: respuesta.mes ? `Mes: ${respuesta.mes}` : `${respuesta.fechaInit} - ${respuesta.fechaFin}`,
+    pasajeros: `Pasajeros: ${respuesta.personas}`
+  };
+
+  const initialValues = {
+    origen: respuesta.origen_id,
+    destino: respuesta.destino_id,
+    fecha: {
+      tipo: respuesta.mes ? 'mes' : 'rango',
+      fechaInicio: respuesta.mes ? null : respuesta.fechaInit,
+      fechaFin: respuesta.mes ? null : respuesta.fechaFin,
+      mes: respuesta.mes || null,
+    },
+    pasajeros: respuesta.personas,
+    valoracion: respuesta.valoracion_hotel,
+  };
+
+  const handleBuscarViaje = (respuesta) => {
+    const dataForNavigate = {
+      respuesta,
+      aeropuertos
+    }
+    navigate('/ver-paquetes', { state: dataForNavigate });
+  };
+
+  const handleComprar = (paquete) => {
+    agregarVista({ fk_fechaPaquete: paquete.id })
+      .then(response => {
+        console.log(response);
+      })
+      .catch(error => {
+        console.error(error);
+      });
+
+    navigate('/detalle', { state: paquete });
+  }
+
+  useEffect(() => {
+    const fetchPaquetes = async () => {
+      try {
+        setLoading(true);
+        setError(null);
+
+        let data;
+        if (respuesta.mes) {
+          data = await getPaquetesMes(respuesta);
+        } else {
+          data = await getPaquetes(respuesta);
         }
-        navigate('/ver-paquetes', { state: dataForNavigate }); // Navega a la página "/ver-paquetes" con el objeto respuesta
+        setPaquetes(data);
+        setPaquetesFiltrados(data);
+      } catch (error) {
+        setError(error);
+      } finally {
+        setLoading(false);
+      }
     };
 
-    const handleComprar = (paquete) => {
-        // Log the package id
-        // console.log(paquete.id);
-
-        // Call the agregarVista function with the package id
-        agregarVista({ fk_fechaPaquete: paquete.id })
-            .then(response => {
-                // Handle the response if needed
-                // console.log(response);
-            })
-            .catch(error => {
-                // Handle errors
-                console.error(error);
-            });
-
-        // Navigate to the '/detalle' route with the package details
-        navigate('/detalle', { state: paquete });
+    if (respuesta) {
+      fetchPaquetes();
     }
+  }, [respuesta]);
 
-    useEffect(() => {
-        const fetchPaquetes = async () => {
-            try {
-                setLoading(true);
-                setError(null);
+  if (loading) {
+    return <LoadingSpinner />;
+  }
 
-                let data;
-                if (respuesta.mes) {
-                    data = await getPaquetesMes(respuesta);
-                } else {
-                    data = await getPaquetes(respuesta);
-                }
-                setPaquetes(data);
-            } catch (error) {
-                setError(error);
-            } finally {
-                setLoading(false);
-            }
-        };
+  if (error) {
+    return <div>Error: {error.message}</div>;
+  }
 
-        if (respuesta) {
-            fetchPaquetes();
-        }
-    }, [respuesta]);
+  return (
+    <>
+      <Header />
+      <div className="BuscaViajeVerPaquetes">
+        <BuscaViaje
+          aeropuertos={aeropuertos}
+          placeholder={placeholder}
+          onSubmit={handleBuscarViaje}
+          initialValues={initialValues}
+          className={'VerPaquetes__Header'}
+        />
+      </div>
 
-    if (loading) {
-        return <LoadingSpinner />;
-    }
-
-    if (error) {
-        return <div>Error: {error.message}</div>;
-    }
-
-    return (
-        <>
-            <Header />
-            <div className="BuscaViajeVerPaquetes">
-                <BuscaViaje
-                    aeropuertos={aeropuertos}
-                    placeholder={placeholder}
-                    onSubmit={handleBuscarViaje}
-                    initialValues={initialValues}
-                    className={'VerPaquetes__Header'}
-                />
-            </div>
-
-            <div className="VerListaPaquetes">
-                <div className="col-md-12 mx-5 mr-5 mt-2 pl-5 ">
-                    <div className="Botones" >
-                        <BotonOrdener paquetes={paquetes} setPackages={setPaquetes} />
-                        <button type='button' className='btn' onClick={() => setShowModal(true)}>Filtros</button>
-                    </div>
-                </div>
-                <ListaPaquetes
-                    paquetes={paquetesFiltrados}
-                    onBuy={handleComprar}
-                />
-            </div>
-            <Footer />
-            <Modal show={showModal} onHide={() => setShowModal(false)}>
-                <Modal.Body>
-                    <Filtros filtrarPaquetes={filtrarPaquetes} />
-                </Modal.Body>
-
-            </Modal>
-        </>
-    );
+      <div className="VerListaPaquetes">
+        <div className="col-md-12 mx-5 mr-5 mt-2 pl-5 ">
+          <div className="Botones" >
+            <BotonOrdener paquetes={paquetes} setPackages={setPaquetes} />
+            <button type='button' className='btn' onClick={() => setShowModal(true)}>Filtros</button>
+          </div>
+        </div>
+        <ListaPaquetes
+          paquetes={paquetesFiltrados}
+          onBuy={handleComprar}
+        />
+      </div>
+      <Footer />
+      <Modal show={showModal} onHide={() => setShowModal(false)}>
+        <Modal.Body>
+          <Filtros filtrarPaquetes={filtrarPaquetes} />
+        </Modal.Body>
+      </Modal>
+    </>
+  );
 };
 
 export default VerPaquetes;
