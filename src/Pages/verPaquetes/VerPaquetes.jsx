@@ -7,6 +7,7 @@ import LoadingSpinner from '../../Components/LoadingSpinner/LoadingSpinner';
 import { getPaquetes, getPaquetesMes, agregarVista } from '../../api';
 import { useNavigate } from 'react-router-dom';
 import { Modal } from 'react-bootstrap';
+import { MesString } from '../../Components/utils';
 
 import BuscaViaje from '../../Components/buscaViaje/BuscaViaje';
 import ListaPaquetes from '../../Components/listaPaquetes/ListaPaquetes';
@@ -41,12 +42,6 @@ const VerPaquetes = () => {
     setPaquetesFiltrados(paquetesFiltrados);
 };
 
-  const placeholder = {
-    origen: `Origen: ${respuesta.origen_id}`,
-    destino: `Destino: ${respuesta.destino_id}`,
-    calendario: respuesta.mes ? `Mes: ${respuesta.mes}` : `${respuesta.fechaInit} - ${respuesta.fechaFin}`,
-    pasajeros: `Pasajeros: ${respuesta.personas}`
-  };
 
   const initialValues = {
     origen: respuesta.origen_id,
@@ -114,6 +109,15 @@ const VerPaquetes = () => {
   if (error) {
     return <div>Error: {error.message}</div>;
   }
+console.log(paquetes)
+
+const placeholder = {
+  origen: `Origen: ${paquetes[0].nombre_ciudad_origen}`,
+  destino: `Destino: ${paquetes[0].nombre_ciudad_destino}`,
+  calendario: respuesta.mes ? `Mes: ${MesString(respuesta.mes)}` : `${respuesta.fechaInit} - ${respuesta.fechaFin}`,
+  pasajeros: `Pasajeros: ${respuesta.personas}`
+};
+
 
   return (
     <>

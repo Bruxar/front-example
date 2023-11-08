@@ -117,7 +117,7 @@ const Home = () => {
             
                 {paquetesOfertas != null ? (
                     <div>
-                       <div className= "mt-3 ms-5 d-flex w-50 "><h2>Ofertas</h2></div> 
+                       <div className= "mt-4 mb-2 me-5  w-25"><h1 className='text-end'>Ofertas</h1></div> 
                         <Carrusel paquetes={paquetesOfertas} handleBuy = {handleComprar} />
                    </div>
                     
