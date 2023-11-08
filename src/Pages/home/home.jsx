@@ -52,7 +52,7 @@ console.log(ubicacion)
     useEffect(() => {
         const fetchOfertas = async () => {
             try {
-                const data = await getPaquetesOfertas(ubicacion);
+                const data = await getOfertas(ubicacion);
                 setPaquetesOfertas(data);
             } catch (error) {
                 setError(error);

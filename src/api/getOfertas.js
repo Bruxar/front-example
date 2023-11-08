@@ -1,4 +1,4 @@
-export async function getPaquetesOfertas(data) {
+export async function getOfertas(data) {
     try {
         const apiUrl = import.meta.env.VITE_API_URL;
         const response = await fetch(`${apiUrl}/paquetes/ofertas`, {
