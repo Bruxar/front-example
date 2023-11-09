@@ -48,3 +48,7 @@ nav{
 .bi{
     margin-right: 3px;
 }
+
+.login-btn{
+    justify-content: end;
+}
