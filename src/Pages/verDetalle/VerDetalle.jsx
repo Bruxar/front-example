@@ -2,11 +2,12 @@ import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import Gallery from 'react-image-gallery';
 import Modal from 'react-modal';
-import tarjetaDescripcion from './tarjetaDescripcion/tarjetaDescripcion.jsx';
+
 import 'react-image-gallery/styles/css/image-gallery.css';
 import { renderStars, renderServiceIcons } from '../../Components/utils.jsx';
 import TarjetaContacto from './tarjetaContacto/TarjetaContacto.jsx';
 import './verDetalle.css';
+import TarjetaDescripcion from './tarjetaDescripcion/tarjetaDescripcion.jsx';
 
 // Esta línea es necesaria para la accesibilidad del modal
 Modal.setAppElement('#root');
@@ -47,6 +48,8 @@ const VerDetalle = () => {
         sitio_web_hotel,
     } = hotel_info;
 
+    console.log(descripcion_hotel)
+
     // Convertir cadena de imágenes en array y construir las URLs
     const imagesArray = imagenes ? imagenes.substring(1, imagenes.length - 1).split(',') : [];
     const VITE_PATH_IMAGES = import.meta.env.VITE_PATH_IMAGES;
@@ -63,7 +66,8 @@ const VerDetalle = () => {
         <div className="verDetalleContainer">
             <h1>{descripcion}</h1>
             {/* Contenedor de las imágenes del paquete */}
-            <div className="imagenesContainer">
+            
+            <div className="imagenesContainer w-50">
                 {imageGalleryItems.map((image, index) => (
                     <div
                         key={index}
@@ -115,17 +119,20 @@ const VerDetalle = () => {
                 <p>{nombre_hotel}</p>
                 <p>{direccion_hotel}</p>
                 <div className="starsContainer">{renderStars(valoracion_hotel)}</div>
-                <p>{descripcion_hotel}</p>
+                
                 <div className="servicesContainer">{renderServiceIcons(servicios_hotel)}</div>
             </div>
-            <div className='DescripcionPaquete'>
-                <tarjetaDescripcion descripcion={descripcion} />
+            <div className='d-flex justify-content-center aling-items-center'>
+
+            <div className='DescripcionPaquete mt-1 d-flex w-50'>
+                <TarjetaDescripcion descripcion_hotel = {descripcion_hotel} />
                 </div>
-            <div className="detalleContacto">
+            <div className="detalleContacto w-50">
                 <TarjetaContacto telefono_hotel={telefono_hotel}
                  correo_electronico_hotel={correo_electronico_hotel}
                  sitio_web_hotel={sitio_web_hotel}  />
              </div>
+          </div>
 
             {/* Aquí puedes insertar otros elementos y detalles según tus necesidades */}
         </div>

@@ -61,8 +61,8 @@ function OfferCarousel({ paquetes, handleBuy }) {
         setCardsToShow(4);
       } else if (screenWidth >= 1300) {
         setCardsToShow(3);
-      } else if (screenWidth >= 1000) {
-        setCardsToShow(2);
+      } else if (screenWidth >= 1100) {
+        setCardsToShow(1);
       } else {
         setCardsToShow(1);
       }
@@ -92,7 +92,7 @@ function OfferCarousel({ paquetes, handleBuy }) {
       <div className="container" style={{}}>
         <Carousel interval={null}>
           {chunkedPaquetes.map((paqueteGroup, groupIndex) => (
-            <Carousel.Item key={`carousel-item-${groupIndex}`}>
+            <Carousel.Item className='justify-content-center' key={`carousel-item-${groupIndex}`}>
               <div className="row justify-content-center">
                 {paqueteGroup.map((paquete) => (
                   <OfferCard key={paquete.id} paquete={paquete} handleBuy={handleBuy} cardsToShow={cardsToShow} VITE_PATH_IMAGES={VITE_PATH_IMAGES} />
