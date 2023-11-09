@@ -122,17 +122,21 @@ const VerDetalle = () => {
                 
                 <div className="servicesContainer">{renderServiceIcons(servicios_hotel)}</div>
             </div>
-            <div className='d-flex justify-content-center aling-items-center'>
+            <div className='d-flex "d-flex flex-wrap justify-content-center align-items-center'>
 
-            <div className='DescripcionPaquete mt-1 d-flex w-50'>
-                <TarjetaDescripcion descripcion_hotel = {descripcion_hotel} />
-                </div>
-            <div className="detalleContacto w-50">
-                <TarjetaContacto telefono_hotel={telefono_hotel}
-                 correo_electronico_hotel={correo_electronico_hotel}
-                 sitio_web_hotel={sitio_web_hotel}  />
-             </div>
-          </div>
+  <div className='DescripcionPaquete  mt-1 '>
+    <TarjetaDescripcion descripcion_hotel={descripcion_hotel} />
+  </div>
+
+  <div className="detalleContacto  mt-3">
+    <TarjetaContacto
+      telefono_hotel={telefono_hotel}
+      correo_electronico_hotel={correo_electronico_hotel}
+      sitio_web_hotel={sitio_web_hotel}
+    />
+  </div>
+
+</div>
 
             {/* Aquí puedes insertar otros elementos y detalles según tus necesidades */}
         </div>
