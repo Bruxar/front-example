@@ -134,8 +134,8 @@ const VerPaquetes = () => {
 console.log(paquetes)
 
 const placeholder = {
-  origen: `Origen: ${paquetes[0].nombre_ciudad_origen}`,
-  destino: `Destino: ${paquetes[0].nombre_ciudad_destino}`,
+  origen: ` ${paquetes[0].nombre_ciudad_origen}`,
+  destino: ` ${paquetes[0].nombre_ciudad_destino}`,
   calendario: respuesta.mes ? `Mes: ${MesString(respuesta.mes)}` : `${respuesta.fechaInit} - ${respuesta.fechaFin}`,
   pasajeros: `Pasajeros: ${respuesta.personas}`
 };
