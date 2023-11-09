@@ -72,7 +72,7 @@ const VerDetalle = () => {
             <h1>{descripcion}</h1>
             {/* Contenedor de las imágenes del paquete */}
         <div className='d-flex'>
-            <div className="imagenesContainer w-50">
+            <div className="imagenesContainer w-75">
                 {imageGalleryItems.map((image, index) => (
                     <div
                         key={index}

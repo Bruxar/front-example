@@ -1,5 +1,6 @@
 import React from 'react';
 import { FaConciergeBell, FaCocktail, FaBed, FaWifi, FaTv, FaCoffee } from 'react-icons/fa';
+import { BiFridge } from "react-icons/bi";
 
 export const serviceIcons = {
     'Restaurante': <FaConciergeBell />,
@@ -8,7 +9,7 @@ export const serviceIcons = {
     'Wi-Fi': <FaWifi />,
     'TV de pantalla plana': <FaTv />,
     'Desayuno buffet': <FaCoffee />,
-    'Minibar': <FaBed />
+    'Minibar': <BiFridge />
 };
 
 export const renderStars = (valoracion) => {
@@ -28,7 +29,7 @@ export const renderStars = (valoracion) => {
 
 export const renderServiceIcons = (services) => {
     return services.split(', ').map((service, index) => (
-        <span className='p-3' key={`serviceIcon_${index}`}>
+        <span className='p-3' title={service} key={`serviceIcon_${index}` }>
             {serviceIcons[service] || service}
         </span>
     ));
