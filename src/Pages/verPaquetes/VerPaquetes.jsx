@@ -111,6 +111,10 @@ const VerPaquetes = () => {
   }
 console.log(paquetes)
 
+if (!paquetes || paquetes.length === 0) {
+  return <NoPaquetesDisp onNewSearch={filtrarPaquetes} />;
+}
+
 const placeholder = {
   origen: `Origen: ${paquetes[0].nombre_ciudad_origen}`,
   destino: `Destino: ${paquetes[0].nombre_ciudad_destino}`,
