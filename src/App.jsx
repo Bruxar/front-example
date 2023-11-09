@@ -8,7 +8,7 @@ import {
 import Home from './Pages/home/home.jsX'
 import NotFound from './pages/notFound/NotFound.jsx'; // Página para manejar rutas no encontradas
 import VerPaquetes from './Pages/verPaquetes/VerPaquetes.jsx'; // Página para manejar la lista de paquetes
-import VerDetalle from './Pages/verDetalle/verDetalle.jsx'; // Página para manejar los detalles de un paquete
+import VerDetalle from './Pages/verDetalle/VerDetalle.jsx'; // Página para manejar los detalles de un paquete
 
 const App = () => {
   return (

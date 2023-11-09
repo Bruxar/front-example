@@ -116,15 +116,15 @@ const Home = () => {
             <div className="carrusel">
             
                 {paquetesOfertas != null ? (
-                    <div>
-                       <div className= "mt-4 mb-2 me-5  w-25"><h1 className='text-end'>Ofertas</h1></div> 
+                    <div className=''>
+                       <div className= " d-flex mt-4 mb-2 me-5 w-25 justify-content-end "><h1 className='text-end'>Ofertas</h1></div> 
                         <Carrusel paquetes={paquetesOfertas} handleBuy = {handleComprar} />
                    </div>
                     
                 ) : (
                     <div className="d-flex align-items-center  justify-content-center">
              <div className="mt-5 align-items-center w-50 ">
-              <h4 className='ms-4'>No se encontraron paquetes en destacados en tu ubicación 😒</h4>
+              <h4 className='ms-4'>No se encontraron paquetes en tu ubicación 😒</h4>
             </div>
            <div className="d-flex">
         <img src="/error.png" alt="yamsha" className="img-fluid" style={{ maxWidth: '60vh' }} />
