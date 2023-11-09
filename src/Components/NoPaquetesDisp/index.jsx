@@ -28,7 +28,7 @@ const NoPaquetesDisponibles = ({onNewSearch}) => {
         <p>Como alternativa, te recomendamos seleccionar destino o fecha diferente.</p>
       </div>
       <div className="imagen-container">
-        <img src="/ups.png" alt="Imagen de error" />
+        <img src="/error.png" alt="Imagen de error" />
       </div>
     </div>
 
