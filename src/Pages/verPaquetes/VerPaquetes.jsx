@@ -6,7 +6,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import LoadingSpinner from '../../Components/LoadingSpinner/LoadingSpinner';
 import { getPaquetes, getPaquetesMes, agregarVista } from '../../api';
 import { useNavigate } from 'react-router-dom';
-import { Modal } from 'react-bootstrap';
+import { Collapse, Modal, Button } from 'react-bootstrap';
 import { MesString } from '../../Components/utils';
 
 import BuscaViaje from '../../Components/buscaViaje/BuscaViaje';
@@ -18,6 +18,7 @@ import Filtros from '../../Components/Filtros';
 import NoPaquetesDisp from '../../Components/NoPaquetesDisp';
 
 import './VerPaquetes.css';
+import { BsSearch } from "react-icons/bs";
 
 const VerPaquetes = () => {
   const location = useLocation();
@@ -30,6 +31,27 @@ const VerPaquetes = () => {
   const navigate = useNavigate();
   const [showModal, setShowModal] = useState(false);
   const [paquetesFiltrados, setPaquetesFiltrados] = useState([]);
+  const [anchoPantalla, setAnchoPantalla] = useState(window.innerWidth);
+  const [isCollapseOpen, setIsCollapseOpen] = useState(false);
+  
+
+  
+  useEffect(() => {
+    const actualizarAnchoDePantalla = () => {
+      setAnchoPantalla(window.innerWidth);
+    };
+  
+    window.addEventListener('resize', actualizarAnchoDePantalla);
+  
+    return () => {
+      window.removeEventListener('resize', actualizarAnchoDePantalla);
+    };
+  }, []); 
+  
+ 
+  const handleToggleCollapse = () => {
+    setIsCollapseOpen(!isCollapseOpen);
+  };
 
 
   const filtrarPaquetes = (stars, selectedServices) => {
@@ -116,24 +138,54 @@ if (!paquetes || paquetes.length === 0) {
 }
 
 const placeholder = {
-  origen: `Origen: ${paquetes[0].nombre_ciudad_origen}`,
-  destino: `Destino: ${paquetes[0].nombre_ciudad_destino}`,
+  origen: ` ${paquetes[0].nombre_ciudad_origen}`,
+  destino: ` ${paquetes[0].nombre_ciudad_destino}`,
   calendario: respuesta.mes ? `Mes: ${MesString(respuesta.mes)}` : `${respuesta.fechaInit} - ${respuesta.fechaFin}`,
   pasajeros: `Pasajeros: ${respuesta.personas}`
 };
 
 
+
+
+
   return (
     <>
       <Header />
+      
       <div className="BuscaViajeVerPaquetes">
+        <div className='w-100'>
+      {anchoPantalla < 768 ?(
+         <>
+           <Button
+              variant="primary"
+              onClick={handleToggleCollapse}
+              className="w-100"  
+            >
+             <BsSearch/>
+            </Button>
+         <Collapse in={isCollapseOpen && anchoPantalla < 768}>
+           <div>
+             <BuscaViaje
+               aeropuertos={aeropuertos}
+               placeholder={placeholder}
+               onSubmit={handleBuscarViaje}
+               initialValues={initialValues}
+               className={'VerPaquetes__Header'}
+             />
+           </div>
+         </Collapse>
+         </>
+        ):
+         
         <BuscaViaje
-          aeropuertos={aeropuertos}
-          placeholder={placeholder}
-          onSubmit={handleBuscarViaje}
-          initialValues={initialValues}
-          className={'VerPaquetes__Header'}
-        />
+              aeropuertos={aeropuertos}
+              placeholder={placeholder}
+              onSubmit={handleBuscarViaje}
+              initialValues={initialValues}
+              className={'VerPaquetes__Header'}    
+            />
+        }
+        </div>
       </div>
 
       <div className="VerListaPaquetes">
