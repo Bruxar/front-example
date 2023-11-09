@@ -18,6 +18,9 @@ const VerDetalle = () => {
     const location = useLocation();
     const paquete = location.state;
     const [isGalleryModalOpen, setIsGalleryModalOpen] = useState(false);
+    console.log('paquetes', paquete)
+    
+   
 
     if (!paquete) {
         return <div>No se ha proporcionado un paquete para ver detalles.</div>;
@@ -26,7 +29,10 @@ const VerDetalle = () => {
     // Desestructuración de las propiedades del paquete
     const {
         nombre,
+        total_personas,
         descripcion,
+        fechainit,
+        fechafin,
         detalles,
         precio_vuelo,
         precio_noche,
@@ -50,7 +56,18 @@ const VerDetalle = () => {
         sitio_web_hotel,
     } = hotel_info;
 
-    console.log(descripcion_hotel)
+    
+    // Convierte las fechas a objetos Date
+    const fechaInicio = new Date(fechainit);
+    const fechaFin = new Date(fechafin);
+
+    // Calcula la diferencia en milisegundos
+    const diferenciaEnMilisegundos = fechaFin - fechaInicio;
+
+    // Calcula la diferencia en días
+    const diferenciaEnDias = diferenciaEnMilisegundos / (1000 * 60 * 60 * 24);
+
+    console.log(descripcion_habitacion)
 
     // Convertir cadena de imágenes en array y construir las URLs
     const imagesArray = imagenes ? imagenes.substring(1, imagenes.length - 1).split(',') : [];
@@ -71,7 +88,7 @@ const VerDetalle = () => {
            
             <h1>{descripcion}</h1>
             {/* Contenedor de las imágenes del paquete */}
-        <div className='d-flex'>
+        <div className='d-flex col'>
             <div className="imagenesContainer w-75">
                 {imageGalleryItems.map((image, index) => (
                     <div
@@ -100,15 +117,16 @@ const VerDetalle = () => {
                 <button onClick={closeGalleryModal}>Cerrar</button>
             </Modal>
 
-            <div className="detalleDescripcion">
-                
-            </div>
-
-            <div className="detallePrecios ms-5 h-100">
+            <div className="detallePrecios ms-5" style={{ height:"65vh", width:"30vw", boxShadow: "2px 2px 2px 2px", borderRadius: '10px'}}>
+                <h1>Precio </h1>
                 <p>{`Precio del Vuelo: $${precio_vuelo}`}</p>
                 <p>{`Precio por Noche: $${precio_noche}`}</p>
+                <h2> Total: {`$${precio_vuelo * total_personas + precio_noche * diferenciaEnDias}`} </h2>
+                <div classname="position-sticky  bottom-0 end-0 p-3">
+                <button type="button" class="btn btn-primary">Comprar</button>
+                </div>
             </div>
-
+            
             </div>
             <div className="detalleOpcionHotel">
                 {/* <h2>{nombre_opcion_hotel}</h2>
@@ -128,7 +146,7 @@ const VerDetalle = () => {
             <div className='d-flex "d-flex flex-wrap justify-content-center align-items-center'>
 
   <div className='DescripcionPaquete  mt-1 '>
-    <TarjetaDescripcion descripcion_hotel={descripcion_hotel} />
+    <TarjetaDescripcion descripcion_hotel={descripcion_hotel} descripcion_habitacion ={descripcion_habitacion} />
   </div>
 
   <div className="detalleContacto  mt-3">
