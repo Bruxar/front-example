@@ -21,7 +21,7 @@ function OfferCard({ paquete, cardsToShow, VITE_PATH_IMAGES, handleBuy}) {
   
 
   return (
-    <div className={`col-md-${12 / cardsToShow} col-sm-6 mt-2 mb-2 me-5 ms-5 `}>
+    <div className={`col-md-${12 / cardsToShow}  mt-2 mb-2 me-5 ms-5 `}>
       <div className="card mb-2 " style={{ height: '100%', width:"350px" }}>
         <img src={imageUrl} alt={paquete.title} className="card-img-top "  />
         <div className="card-body">
@@ -93,7 +93,7 @@ function OfferCarousel({ paquetes, handleBuy }) {
         <Carousel interval={null}>
           {chunkedPaquetes.map((paqueteGroup, groupIndex) => (
             <Carousel.Item className='justify-content-center' key={`carousel-item-${groupIndex}`}>
-              <div className="row justify-content-center">
+              <div className="row aling-items-center justify-content-center">
                 {paqueteGroup.map((paquete) => (
                   <OfferCard key={paquete.id} paquete={paquete} handleBuy={handleBuy} cardsToShow={cardsToShow} VITE_PATH_IMAGES={VITE_PATH_IMAGES} />
                 ))}

@@ -134,7 +134,13 @@ const Home = () => {
   
                 )}
             </div>
+
+            <footer>
+                <Footer/>
+            </footer>
+
         </div>
+        
     );
 };
 

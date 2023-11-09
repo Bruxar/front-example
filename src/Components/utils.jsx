@@ -28,7 +28,7 @@ export const renderStars = (valoracion) => {
 
 export const renderServiceIcons = (services) => {
     return services.split(', ').map((service, index) => (
-        <span key={`serviceIcon_${index}`}>
+        <span className='p-3' key={`serviceIcon_${index}`}>
             {serviceIcons[service] || service}
         </span>
     ));

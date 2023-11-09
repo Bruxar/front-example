@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import Gallery from 'react-image-gallery';
 import Modal from 'react-modal';
+import Footer from '../../utils/Footer/index.jsx';
+import Header from '../../utils/Header/index.jsx'
 
 import 'react-image-gallery/styles/css/image-gallery.css';
 import { renderStars, renderServiceIcons } from '../../Components/utils.jsx';
@@ -63,10 +65,13 @@ const VerDetalle = () => {
 
 
     return (
+        <div className="header">
+            <Header/>
         <div className="verDetalleContainer">
+           
             <h1>{descripcion}</h1>
             {/* Contenedor de las imágenes del paquete */}
-            
+        <div className='d-flex'>
             <div className="imagenesContainer w-50">
                 {imageGalleryItems.map((image, index) => (
                     <div
@@ -83,9 +88,7 @@ const VerDetalle = () => {
                     Ver Galería</button>
             </div>
 
-            {/* Botón para abrir la galería en modal */}
-
-            {/* Modal que contiene la galería de imágenes */}
+            
             <Modal
                 isOpen={isGalleryModalOpen}
                 onRequestClose={closeGalleryModal}
@@ -98,29 +101,29 @@ const VerDetalle = () => {
             </Modal>
 
             <div className="detalleDescripcion">
-                <p>{detalles}</p>
+                
             </div>
 
-            <div className="detallePrecios">
+            <div className="detallePrecios ms-5 h-100">
                 <p>{`Precio del Vuelo: $${precio_vuelo}`}</p>
                 <p>{`Precio por Noche: $${precio_noche}`}</p>
             </div>
 
-
+            </div>
             <div className="detalleOpcionHotel">
-                <h2>{nombre_opcion_hotel}</h2>
+                {/* <h2>{nombre_opcion_hotel}</h2>
                 <p>{descripcion_habitacion}</p>
-                <div className="servicesContainer">{renderServiceIcons(servicios_habitacion)}</div>
+                 */}
 
             </div>
 
             <div className="detalleHotelInfo">
-                <h2>Información del Hotel</h2>
-                <p>{nombre_hotel}</p>
-                <p>{direccion_hotel}</p>
-                <div className="starsContainer">{renderStars(valoracion_hotel)}</div>
-                
-                <div className="servicesContainer">{renderServiceIcons(servicios_hotel)}</div>
+                <h1>{nombre_hotel}</h1>
+                {/* <p>{direccion_hotel}</p> */}
+                <div className="starsContainer" style={{fontSize:'3rem', marginTop:"-20px"}}>{renderStars(valoracion_hotel)}</div>
+                <h3>Servicios</h3>
+                <div className="servicesContainer w-25 "style={{fontSize:'3rem'}}>{renderServiceIcons(servicios_habitacion)}</div>
+                <div className="servicesContainer w-25" style={{fontSize:'3rem'}}>{renderServiceIcons(servicios_hotel)}</div>
             </div>
             <div className='d-flex "d-flex flex-wrap justify-content-center align-items-center'>
 
@@ -139,6 +142,8 @@ const VerDetalle = () => {
 </div>
 
             {/* Aquí puedes insertar otros elementos y detalles según tus necesidades */}
+        </div>
+        <Footer/>
         </div>
     );
 
