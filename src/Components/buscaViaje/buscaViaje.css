@@ -118,13 +118,17 @@
 }
 
 /* Estilos para adaptar el formulario en pantallas pequeñas */
-@media (max-width: 768px) {
-    .ContenedorBuscador {
-        flex-direction: column;
-    }
 
-    .ContenedorBoton {
-        width: 100%;
-        /* El botón se expande en pantallas pequeñas */
+
+@media screen and (max-width: 768px) {
+    .ContenedorBuscador {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch; 
     }
-}
+    
+    .ContenedorBuscador > div {
+      margin-bottom: 10px; 
+    }
+  }
+  

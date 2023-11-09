@@ -1,8 +1,10 @@
 import React, { useState, useCallback } from 'react';
 import './buscaViaje.css';
+import { Collapse, Button } from 'react-bootstrap';
 
 import InputBusqueda from '../inputBusqueda/inputBusqueda';
 import CustomCalendar from '../customCalendar/customCalendar';
+
 
 export default function BuscaViaje({ aeropuertos, onSubmit, placeholder, initialValues, className }) {
     const [origen, setOrigen] = useState(initialValues?.origen ? [aeropuertos.find(aeropuerto => aeropuerto.id === initialValues.origen)] : []);
@@ -16,7 +18,8 @@ export default function BuscaViaje({ aeropuertos, onSubmit, placeholder, initial
     const [pasajeros, setPasajeros] = useState(initialValues?.pasajeros || 0);
 
     const [respuesta, setRespuesta] = useState([]);
-
+    
+    
 
     const handleOrigenSelect = (selected) => {
         setOrigen(selected);
@@ -86,46 +89,62 @@ export default function BuscaViaje({ aeropuertos, onSubmit, placeholder, initial
         </select>
     );
 
-
+    
 
 
 
     return (
         <>
-            <div className={className || "ContenedorBuscador"}>
-                <div className="ContenedorOrigen">
-                    <label className="LabelOrigen">Origen</label>
-                    <InputBusqueda
-                        id="origen"
-                        options={aeropuertos}
-                        onSelect={handleOrigenSelect}
-                        placeholder={placeholder && placeholder.origen ? placeholder.origen : "Selecciona una opción"}
-                    />
-                </div>
-                <div className="ContenedorDestino">
-                    <label className="LabelDestino">Destino</label>
-                    <InputBusqueda
-                        id="destino"
-                        options={aeropuertos}
-                        onSelect={handleDestinoSelect}
-                        placeholder={placeholder && placeholder.destino ? placeholder.destino : "Selecciona una opción"}
+         
+         <div className="container">
+<div className="row">
+  <div className="col-lg-6">
+    <div className="ContenedorOrigen">
+      <label className="LabelOrigen">Origen</label>
+      <InputBusqueda
+        id="origen"
+        options={aeropuertos}
+        onSelect={handleOrigenSelect}
+        placeholder={placeholder && placeholder.origen ? placeholder.origen : "Selecciona una opción"}
+      />
+    </div>
+  </div>
+  <div className="col-lg-6">
+    <div className="ContenedorDestino">
+      <label className="LabelDestino">Destino</label>
+      <InputBusqueda
+         id="destino"
+         options={aeropuertos}
+         onSelect={handleDestinoSelect}
+         placeholder={placeholder && placeholder.destino ? placeholder.destino : "Selecciona una opción"}
+     />
+    </div>
+  </div>
+  <div className="col-lg-6">
+    <div className="ContenedorFecha">
+      <label className="LabelFecha">Fecha</label>
+      <CustomCalendar onDateSelect={handleDateSelect} placeholder={placeholder && placeholder.calendario ? placeholder.calendario : "Selecciona una fecha"} />
+    </div>
+  </div>
+  <div className="col-lg-6">
+    <div className="ContenedorPasajeros mt-1">
+      <label className="LabelPasajeros">Pasajeros</label>
+      {opcionesPasajeros}
+    </div>
+  </div>
+</div>
+<div className="row">
+  <div className="col-lg-12">
+    <div className="ContenedorBoton">
+      <button className="btn btn-primary mt-2" onClick={handleSubmit}>
+        Buscar
+      </button>
+    </div>
+  </div>
+</div>
+</div>
 
-                    />
-                </div>
-                <div className="ContenedorFecha">
-                    <label className="LabelFecha">Fecha</label>
-                    <CustomCalendar onDateSelect={handleDateSelect} placeholder={placeholder && placeholder.calendario ? placeholder.calendario : "Selecciona una fecha"} />
-                </div>
-                <div className="ContenedorPasajeros mt-1" >
-                    <label className="LabelPasajeros">Pasajeros</label>
-                    {opcionesPasajeros}
-                </div>
-            </div>
-            <div className="ContenedorBoton">
-                <button className="BotonBuscar" onClick={handleSubmit}>
-                    Buscar
-                </button>
-            </div>
-        </>
+</>
     );
 }
+
