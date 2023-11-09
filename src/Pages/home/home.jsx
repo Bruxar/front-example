@@ -107,6 +107,7 @@ const Home = () => {
         <div className="Home">
             <Header />
             <div className="Contenedor">
+                
                 <h1 className="Titulo">¡Busca tu viaje ahora!</h1>
                 <BuscaViaje
                     aeropuertos={aeropuertos}

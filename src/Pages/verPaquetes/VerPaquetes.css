@@ -54,3 +54,13 @@
 ::-webkit-scrollbar-thumb:hover {
     background: #555;
 }
+
+@media (max-width: 768px) {
+    .BuscaViajeVerPaquetes {
+        flex-direction: column;
+    }
+
+    .VerPaquetes__Header{
+        flex-direction: column;
+    }
+}

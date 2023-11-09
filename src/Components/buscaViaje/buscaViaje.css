@@ -20,11 +20,6 @@
 }
 
 
-.BuscaViaje {
-    position: relative;
-    z-index: 1;
-}
-
 .Contenedor h1 {
     color: darkslategrey;
     font-weight: 600;
@@ -118,17 +113,3 @@
 }
 
 /* Estilos para adaptar el formulario en pantallas pequeñas */
-
-
-@media screen and (max-width: 768px) {
-    .ContenedorBuscador {
-      display: flex;
-      flex-direction: column;
-      align-items: stretch; 
-    }
-    
-    .ContenedorBuscador > div {
-      margin-bottom: 10px; 
-    }
-  }
-  
