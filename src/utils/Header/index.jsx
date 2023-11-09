@@ -11,22 +11,14 @@ function NavBar() {
                 <Navbar.Brand href='/'>
                     <img src="/logo.png" alt="logo" className='logo'/>
                 </Navbar.Brand>
-                <Navbar.Toggle aria-controls="menu" className='btn-colapse'/>
-                <Navbar.Collapse id="menu">
-                    <Nav className="me-auto justify-content-center">
-                        <Nav.Link className='link-izq d-flex justify-content-center' href="">
-                            <i className="bi bi-briefcase-fill"></i> Paquetes
-                        </Nav.Link>
-                        <Nav.Link className='link-izq d-flex justify-content-center' href="">
-                            <i className="bi bi-info-circle-fill"></i> Ayuda
-                        </Nav.Link>
-                    </Nav>
+                    <div className='login-btn'>
                     <Nav className="mr-auto">
                         <Nav.Link className="btn" href="">
                                 <i className="bi bi-person-circle"></i> Ingresar
                         </Nav.Link>
                     </Nav>
-                </Navbar.Collapse>
+                    </div>
+
             </div>
         </Navbar>
     );

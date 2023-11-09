@@ -15,6 +15,14 @@
     gap: 1rem;
 }
 
+.contenedor-buscador{
+    background: rgb(30, 224, 219);
+    background: -moz-linear-gradient(0deg, rgba(30, 224, 219, 1) 0%, rgba(34, 159, 195, 1) 100%);
+    background: -webkit-linear-gradient(0deg, rgba(30, 224, 219, 1) 0%, rgba(34, 159, 195, 1) 100%);
+    background: linear-gradient(0deg, rgba(30, 224, 219, 1) 0%, rgba(34, 159, 195, 1) 100%);
+    padding: 2rem;
+}
+
 .VerPaquetes__Header {
     display: flex;
     flex-direction: row;
@@ -31,7 +39,7 @@
 .Botones{
     display: flex;
     gap: 2em;
-    justify-content: center;
+    justify-content: start;
 }
 
 

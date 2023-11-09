@@ -14,6 +14,10 @@
 
 .loading-overlay {
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .spinner-container {

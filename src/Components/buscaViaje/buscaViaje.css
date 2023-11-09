@@ -107,6 +107,15 @@
     transition: .2s ease;
 }
 
+.ContenedorBoton{
+    display: flex;
+    justify-content: center;
+}
+
+.ContenedorBoton button{
+    border: none;
+}
+
 .BotonBuscar:hover {
     background-color: #E16000;
     /* Color un poco más oscuro al pasar el ratón por encima */
